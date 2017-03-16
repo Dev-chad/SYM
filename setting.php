@@ -41,9 +41,39 @@
     <div id="top">
         <div style="float: right;">
             <?php if (!isset($_SESSION["id"]) || !isset($_SESSION["pwd"])) { ?>
-                <script> location.href="index.php"</script>
+                <a class="button blue" href="#" data-toggle="modal" data-target="#login-modal">로그인</a>
+                <div class="modal modal-center fade" id="login-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-center">
+                        <div class="loginmodal-container">
+                            <h1>Login to Your Account</h1><br>
+                            <form action="login.php" method="post">
+                                <input type="text" name="id" placeholder="아이디">
+                                <input type="password" name="pwd" placeholder="비밀번호">
+                                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                            </form>
+
+                            <div class="login-help">
+                                <a href="join.php">회원가입</a> - <a href="#">계정 찾기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php } else { ?>
-                <a class="button red" href="logout.php">로그아웃</a>
+
+                <div class="dropdown">
+                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="setting.php">Setting</a></li>
+                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                            <li><a href="#">Admin Page</a></li>
+                        <?php } ?>
+                        <li><a href="logout.php">Logout</a></li>
+
+                    </ul>
+                </div>
+
             <?php } ?>
         </div>
     </div>
@@ -76,31 +106,31 @@
         </nav>
 
     </header>
-
+    <div id="pagetitle">
+        <h1>Setting</h1>
+        <p>회원 정보 변경</p>
+    </div>
     <div class="col-md-12">
-        <div class="page-header">
-            <h1>SETTING <small>회원 정보 변경</small></h1>
-        </div>
-        <form class="form-horizontal" name="joinForm" method="POST">
+        <form class="form-horizontal" name="joinForm" action="editMember.php" method="POST">
             <div id="main" class="clearfix"><h3 style="color: #777; ">비밀번호 변경</h3></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputCurrentPassword">기존 비밀번호</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputCurrentPassword" type="password" name="pwd">
+                    <input class="form-control" id="inputCurrentPassword" type="password" name="currentPwd">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPassword">새 비밀번호</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPassword" type="password" name="pwd">
+                    <input class="form-control" id="inputPassword" type="password" name="newPwd">
                     <p class="help-block">숫자, 특수문자 포함 8자 이상</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPasswordCheck">새 비밀번호 확인</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPasswordCheck" type="password" name="repwd">
-                    <p class="help-block">비밀번호를 한번 더 입력해주세요.</p>
+                    <input class="form-control" id="inputPasswordCheck" type="password" name="reNewPwd">
+                    <p class="help-block">새 비밀번호를 한번 더 입력해주세요.</p>
                 </div>
             </div>
 

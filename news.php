@@ -55,7 +55,19 @@
                     </div>
                 </div>
             <?php } else { ?>
-                <a class="button red" href="logout.php">로그아웃</a>
+
+                <div class="dropdown">
+                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="setting.php">Setting</a></li>
+                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                            <li><a href="#">Admin Page</a></li>
+                        <?php } ?>
+                        <li><a href="logout.php">Logout</a></li>
+
+                    </ul>
+                </div>
 
             <?php } ?>
         </div>
