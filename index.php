@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,6 +29,7 @@
         });
 
     </script>
+
 </head>
 <body>
 
@@ -35,38 +37,54 @@
     <!--========================== L O G O  &   N A V    B A R ============================-->
     <div id="top">
         <div style="float: right;">
-            <a class="button blue" href="#" data-toggle="modal" data-target="#login-modal">로그인</a>
-            <div class="modal modal-center fade" id="login-modal" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-center">
-                    <div class="loginmodal-container">
-                        <h1>Login to Your Account</h1><br>
-                        <form>
-                            <input type="text" name="id" placeholder="아이디">
-                            <input type="password" name="pwd" placeholder="비밀번호">
-                            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-                        </form>
+            <?php if (!isset($_SESSION["id"]) || !isset($_SESSION["pwd"])) { ?>
+                <a class="button blue" href="#" data-toggle="modal" data-target="#login-modal">로그인</a>
+                <div class="modal modal-center fade" id="login-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-center">
+                        <div class="loginmodal-container">
+                            <h1>Login to Your Account</h1><br>
+                            <form action="login.php" method="post">
+                                <input type="text" name="id" placeholder="아이디">
+                                <input type="password" name="pwd" placeholder="비밀번호">
+                                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                            </form>
 
-                        <div class="login-help">
-                            <a href="join.html">회원가입</a> - <a href="#">계정 찾기</a>
+                            <div class="login-help">
+                                <a href="join.php">회원가입</a> - <a href="#">계정 찾기</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } else { ?>
 
+                <div class="dropdown">
+                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="setting.php">Setting</a></li>
+                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                            <li><a href="#">Admin Page</a></li>
+                        <?php } ?>
+                        <li><a href="logout.php">Logout</a></li>
+
+                    </ul>
+                </div>
+
+            <?php } ?>
         </div>
     </div>
 
 
     <header>
         <div id="logo">
-            <a href="index.html"><img src="images/sym_logo.png" alt="SYM"/></a>
+            <a href="index.php"><img src="images/sym_logo.png" alt="SYM"/></a>
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="stage.html">Stage</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="stage.php">Stage</a></li>
                 <li><a href="#" class="dropdown">Simple Codes</a>
                     <ul>
                         <li><a href="elements.html">Base Elements & Tables</a></li>

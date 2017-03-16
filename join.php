@@ -28,7 +28,7 @@
         });
 
         function cancle(){
-            self.location.href="/index.html";
+            self.location.href="/index.php";
         }
 
         function submit(){
@@ -55,7 +55,7 @@
                         </form>
 
                         <div class="login-help">
-                            <a href="join.html">회원가입</a> - <a href="#">계정 찾기</a>
+                            <a href="join.php">회원가입</a> - <a href="#">계정 찾기</a>
                         </div>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
 
     <header>
         <div id="logo">
-            <a href="index.html"><img src="images/sym_logo.png" alt="YouRock"/></a>
+            <a href="index.php"><img src="images/sym_logo.png" alt="YouRock"/></a>
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="blog.html">News</a></li>
                 <li><a href="portfolio.html">Stage</a></li>
                 <li><a href="#" class="dropdown">Simple Codes</a>
@@ -116,6 +116,12 @@
                 <div class="col-sm-6">
                     <input class="form-control" id="inputPasswordCheck" type="password" placeholder="비밀번호 확인" name="repwd">
                     <p class="help-block">비밀번호를 한번 더 입력해주세요.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="inputNickName">닉네임</label>
+                <div class="col-sm-6">
+                    <input class="form-control" id="inputNickName" type="text" placeholder="이름" name="nickname">
                 </div>
             </div>
             <div class="form-group">
