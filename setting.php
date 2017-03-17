@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); include "db.php";?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,7 +28,7 @@
             });
         });
 
-        function submit(){
+        function submit() {
             $("#joinForm").submit();
         }
 
@@ -62,11 +62,12 @@
             <?php } else { ?>
 
                 <div class="dropdown">
-                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                    <a href="#" class="button green dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="setting.php">Setting</a></li>
-                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                        <?php if ($_SESSION["type"] == "admin") { ?>
                             <li><a href="#">Admin Page</a></li>
                         <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
@@ -79,7 +80,6 @@
     </div>
 
 
-
     <header>
         <div id="logo">
             <a href="index.php"><img src="images/sym_logo.png" alt="YouRock"/></a>
@@ -87,8 +87,8 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="blog.html">News</a></li>
-                <li><a href="portfolio.html">Stage</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="stage.php">Stage</a></li>
                 <li><a href="#" class="dropdown">Simple Codes</a>
                     <ul>
                         <li><a href="elements.html">Base Elements & Tables</a></li>
@@ -136,22 +136,29 @@
 
             <div id="main" class="clearfix" style="margin-top: 20px"><h3 style="color: #777; ">기본 정보 변경</h3></div>
             <div class="form-group">
+                <?php
+                $query = "select nickname, email, phone_number from member where id = '".$_SESSION['id']."'";
+                $result = $mysqli->query($query);
+                $data = mysqli_fetch_array($result);
+                ?>
                 <label class="col-sm-3 control-label" for="inputNickName">닉네임</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputNickName" type="text" name="nickname">
+                    <input class="form-control" id="inputNickName" type="text" name="nickname" value="<?php echo $data['nickname'];?>">
                 </div>
+
+
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputEmail">이메일</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputEmail" type="email" name="email">
+                    <input class="form-control" id="inputEmail" type="email" name="email" value="<?php echo $data['email'];?>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputNumber">휴대폰번호</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="tel" class="form-control" id="inputNumber" placeholder="- 없이 입력해 주세요" name="phone"/>
+                        <input type="tel" class="form-control" id="inputNumber"name="phone" value="<?php echo $data['phone_number'];?>"/>
                         <span class="input-group-btn">
                   </span>
                     </div>

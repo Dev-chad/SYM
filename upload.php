@@ -29,6 +29,7 @@
         });
 
     </script>
+
 </head>
 <body>
 
@@ -101,65 +102,24 @@
         </nav>
 
     </header>
-
-    <!--========================== M A I N   C O N T E N T =============================-->
-    <!--Here goes the page title and tag line-->
-
-    <div id="main" class="clearfix">
-        <p class="error" style="font-size: 200px; margin-top: 50px">Error!!</p>
-        <h1 align="center">잘못된 접근입니다.</h1>
-    </div><!--End of Main-->
-
-    <!--============================= F O O T E R  =======================================-->
-    <!--<footer>
-        <div id="widget1">
-            <a href="index.html"><img src="images/mini-yourock.png" alt="YouRock"/></a>
-        </div>
-        <div id="widget2">
-            <h1>About us</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna
-                risus posuere turpis, nec cursus ipsum arcu. magna risus posuere turpis, nec cursus ipsum arcu.</p>
-        </div>
-        <div id="widget3">
-            <h1>From the blog</h1>
-            <div id="footerarticle">
-                <a href="#"><img src="images/f1.jpg" alt=""/></a>
-                <div id="fainfo">
-                    <a href="#"><h2>Lorem Ipsum Dolor</h2></a>
-                    <p>January 24, 2014</p>
-                </div>
+    <div id="pagetitle">
+        <h1>Upload</h1>
+        <p>게시글 작성</p>
+    </div>
+    
+    <div style="padding : 30px;">
+        <form method="POST" action="content_upload.php">
+            <div class="form-group">
+                <label>제목</label>
+                <input type="text" name="title" class="form-control">
             </div>
-            <div id="footerarticle">
-                <a href="#"><img src="images/f2.jpg" alt=""/></a>
-                <div id="fainfo">
-                    <a href="#"><h2>Conset tetur Adipi</h2></a>
-                    <p>January 24, 2014</p>
-                </div>
+            <div class="form-group">
+                <label>내용</label>
+                <textarea name="desc" class="form-control" rows="5"></textarea>
             </div>
-            <div id="footerarticle">
-                <a href="#"><img src="images/f3.jpg" alt=""/></a>
-                <div id="fainfo">
-                    <a href="#"><h2>Lorem Ipsum Dolor</h2></a>
-                    <p>January 24, 2014</p>
-                </div>
-            </div>
-            <div id="footerarticle">
-                <a href="#"><img src="images/f4.jpg" alt=""/></a>
-                <div id="fainfo">
-                    <a href="#"><h2>Magna risus Posuere</h2></a>
-                    <p>January 24, 2014</p>
-                </div>
-            </div>
-        </div>
-        <div id="widget4">
-            <h1>Random Stuff</h1>
-            <img src="images/randomstuff.jpg" alt="Random Stuff"/>
-        </div>
-        <div id="copyrights">
-            <p>Copyright © 2014 YouRock. All rights reserved.</p>
-            <span id="designedby">Designed by <a href="http://allkickass.com">Youssef Nassim</a>
-        </div>
-    </footer>-->
+            <button type="submit" class="btn btn-default">작성</button>
+        </form>
+    </div>
 
 </div>
 
@@ -167,3 +127,8 @@
 <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 </body>
 </html>
+
+
+
+
+

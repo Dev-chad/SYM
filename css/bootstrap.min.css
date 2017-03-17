@@ -1352,8 +1352,6 @@ button, input, select, textarea {
     line-height: inherit
 }
 
-
-
 a:focus {
     outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
@@ -1831,6 +1829,7 @@ pre code {
 }
 
 .row {
+    width: 940px;
     margin-right: -15px;
     margin-left: -15px
 }

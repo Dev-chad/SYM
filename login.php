@@ -1,9 +1,5 @@
 <?php session_start();
-$host = 'localhost';
-$user = 'root';
-$pw = 'Endofmysql!1';
-$dbName = 'sym';
-$mysqli = new mysqli($host, $user, $pw, $dbName);
+include "db.php";
 
 $id = $_POST['id'];
 $pwd = md5($_POST['pwd']);

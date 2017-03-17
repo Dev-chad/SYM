@@ -105,6 +105,22 @@
 			<h1>Stage</h1>
 			<p>여러분의 끼와 가능성을 마음껏 표출하세요</p>
 		</div>
+        <div class="container" style="width: 940px; height: 50px">
+            <div class="row" >
+                <div class="col-sm-6 col-sm-offset-3" style="height: 50px">
+                    <div id="imaginary_container" align="top">
+                        <div class="input-group stylish-input-group">
+                            <input type="text" class="form-control"  placeholder="Search" >
+                            <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<div id="main" class="portfolio clearfix">
 			<article>
 				<a href="#"><img src="images/p1.jpg" alt="img" /></a>

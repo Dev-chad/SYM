@@ -90,8 +90,8 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="blog.html">News</a></li>
-                <li><a href="portfolio.html">Stage</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="stage.php">Stage</a></li>
                 <li><a href="#" class="dropdown">Simple Codes</a>
                     <ul>
                         <li><a href="elements.html">Base Elements & Tables</a></li>
@@ -115,43 +115,43 @@
     </div>
     <div class="col-md-12">
 
-        <form class="form-horizontal" name="joinForm" action="db.php" method="POST">
+        <form class="form-horizontal" name="joinForm" action="joinUser.php" method="POST">
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputId">아이디</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputId" type="text" placeholder="아이디" name="id">
+                    <input class="form-control" id="inputId" type="text" name="id">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPassword">비밀번호</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPassword" type="password" placeholder="비밀번호" name="pwd">
+                    <input class="form-control" id="inputPassword" type="password" name="pwd">
                     <p class="help-block">숫자, 특수문자 포함 8자 이상</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPasswordCheck">비밀번호 확인</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPasswordCheck" type="password" placeholder="비밀번호 확인" name="repwd">
+                    <input class="form-control" id="inputPasswordCheck" type="password" name="repwd">
                     <p class="help-block">비밀번호를 한번 더 입력해주세요.</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputNickName">닉네임</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputNickName" type="text" placeholder="이름" name="nickname">
+                    <input class="form-control" id="inputNickName" type="text" name="nickname">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputName">이름</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputName" type="text" placeholder="이름" name="name">
+                    <input class="form-control" id="inputName" type="text" name="name">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputEmail">이메일</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputEmail" type="email" placeholder="이메일" name="email">
+                    <input class="form-control" id="inputEmail" type="email" name="email">
                 </div>
             </div>
             <div class="form-group">

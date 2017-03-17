@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include "db.php" ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,11 +58,12 @@
             <?php } else { ?>
 
                 <div class="dropdown">
-                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                    <a href="#" class="button green dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="setting.php">Setting</a></li>
-                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                        <?php if ($_SESSION["type"] == "admin") { ?>
                             <li><a href="#">Admin Page</a></li>
                         <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
@@ -105,66 +107,28 @@
         <h1>News</h1>
         <p>SYM에서 알려드리는 다양한 소식</p>
     </div>
+    <?php if ($_SESSION['type'] == "admin") { ?>
+        <div id="main" class="clearfix">
+            <a href="upload.php" class="button red" style="float: right">올리기</a>
+        </div>
+    <?php } ?>
     <div id="main" class="clearfix">
         <div id="content"><!--Here goes the articles-->
-            <article>
-                <div class="post-image">
-                    <img src="images/audition_jyp.jpg" alt=""/>
-                    <a href="news-post.php?post=1" class="post-info">
-
-                        <h1 class="post-title">JYP 오디션 개막</h1>
-                        <span class="author">Written by SYM</span><span class="date">March 9,2017</span><span
-                                class="comments">7 Comments</span>
-                    </a>
-                </div>
-                <p></p>
-                <a class="readmore" href="news-post.php?post=1">Read more</a>
-            </article>
-
-            <article>
-                <div class="post-image">
-                    <img src="images/audition_yg.jpg" alt=""/>
-                    <a href="news-post.php?post=2" class="post-info">
-                        <h1 class="post-title">YG 오디션 개막</h1>
-                        <span class="author">Written by SYM</span><span class="date">March 9,2017</span><span
-                                class="comments">7 Comments</span>
-                    </a>
-                </div>
-                <p></p>
-                <a class="readmore" href="news-post.php?post=2">Read more</a>
-            </article>
-            <!--<article>
-                <div class="post-image">
-                    <img src="images/post2.jpg" alt=""/>
-                    <a href="news-post.php" class="post-info">
-                        <h1 class="post-title">The Nice Post title goes right here</h1>
-                        <span class="author">Written by Admin</span><span class="date">January 26,2009</span><span
-                            class="comments">7 Comments</span>
-                    </a>
-                </div>
-                <p>Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet massa pede eu
-                    diam. Aliquam iaculis. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non
-                    aliquet massa pede eu diam. Aliquam iaculis. Proin tincidunt, velit vel porta elementum, magna diam
-                    molestie sapien. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet
-                    massa pede eu diam. Aliquam iaculis.</p>
-                <a class="readmore" href="news-post.php">Read more</a>
-            </article>
-            <article>
-                <div class="post-image">
-                    <img src="images/post3.jpg" alt=""/>
-                    <a href="news-post.php" class="post-info">
-                        <h1 class="post-title">The Beautiful Post title goes right here</h1>
-                        <span class="author">Written by Admin</span><span class="date">January 26,2009</span><span
-                            class="comments">7 Comments</span>
-                    </a>
-                </div>
-                <p>Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet massa pede eu
-                    diam. Aliquam iaculis. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non
-                    aliquet massa pede eu diam. Aliquam iaculis. Proin tincidunt, velit vel porta elementum, magna diam
-                    molestie sapien. Proin tincidunt, velit vel porta elementum, magna diam molestie sapien, non aliquet
-                    massa pede eu diam. Aliquam iaculis.</p>
-                <a class="readmore" href="news-post.php">Read more</a>
-            </article>-->
+            <?php $query = 'select * from contents where category like "NEWS%" order by date DESC';
+            $result = $mysqli->query($query);
+            while ($result_arr = mysqli_fetch_array($result)) { ?>
+                <article>
+                    <div class="post-image">
+                        <img src="images/Auditions.jpg" alt=""/>
+                        <a href="news-post.php?post=<?php echo $result_arr['idx'];?>" class="post-info">
+                            <h1 class="post-title"><?php echo $result_arr['title']; ?></h1>
+                            <span class="author">Written by <?php echo $result_arr['author']; ?></span><span class="date"><?php echo $result_arr['date']; ?></span>
+                        </a>
+                    </div>
+                    <p></p>
+                    <a class="readmore" href="news-post.php?post=<?php echo $result_arr['idx'];?>">Read more</a>
+                </article>
+            <?php } $mysqli->close();?>
         </div>
 
         <!--<div id="sidebar">&lt;!&ndash;Here goes the sidebar items&ndash;&gt;
