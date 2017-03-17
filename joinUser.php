@@ -8,8 +8,8 @@ $name=$_POST['name'];
 $email=$_POST['email'];
 $phone=$_POST['phone'];
 
-$sql = "insert into member(id, pwd, nickname, name, email, phone_number, type)";
-$sql = $sql. "values('$id','$password', '$nickname', '$name','$email','$phone', 'general')";
+$sql = "insert into member(id, pwd, nickname, name, email, phone_number)";
+$sql = $sql. "values('$id','$password', '$nickname', '$name','$email','$phone')";
 if($mysqli->query($sql)){
     echo '<script>alert("회원가입이 완료되었습니다."); location.href="index.php";</script>';
 }else{
