@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include "db.php" ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,11 @@
             });
         });
 
+        function go() {
+            form.action = "content_remove.php";
+            form.submit = "";
+        }
+
     </script>
 </head>
 <body>
@@ -57,11 +63,12 @@
             <?php } else { ?>
 
                 <div class="dropdown">
-                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                    <a href="#" class="button green dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="setting.php">Setting</a></li>
-                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                        <?php if ($_SESSION["type"] == "admin") { ?>
                             <li><a href="#">Admin Page</a></li>
                         <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
@@ -105,28 +112,48 @@
         <h1>NEWS</h1>
         <p>SYM에서 알려드리는 다양한 소식</p>
     </div>
+
     <?php
     $postNum = $_GET["post"];
-    if ($postNum == 1) {
-        echo '<div id="main" class="clearfix">
-        <div ><!--Here goes the blog post-->
-            <span class="author-bp">Written by SYM</span><span class="date-bp">March 9,2017</span><span
-                    class="comments-bp">7 Comments</span>
-            <h1 class="clear">JYP 오디션 개막</h1>
-            <img src="images/audition_detail_jyp.jpg" alt=""/>
+    $query = "select * from contents where idx = $postNum";
+    $result = $mysqli->query($query);
+    $result_arr = mysqli_fetch_array($result);
 
-        </div><!--End of the Content-->';
-    } elseif($postNum == 2)
-        echo '<div id="main" class="clearfix">
-        <div ><!--Here goes the blog post-->
-            <span class="author-bp">Written by SYM</span><span class="date-bp">March 9,2017</span><span
-                    class="comments-bp">7 Comments</span>
-            <h1 class="clear">YG 오디션 개막</h1>
-            <img src="images/audition_detail_yg.jpg" alt=""/>
-            <
+    if (!is_null($result_arr)) {
+        if ($_SESSION['id'] == "admin") { ?>
+            <div class="dropdown" style="float: right">
+                <a href="#" class="button green dropdown-toggle"
+                   data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form action="">
+                            <input type=hidden name=page value='<? echo $page; ?>'>
+                            <input type=hidden name=number value='<? echo $number; ?>'>
+                            <button type="submit" class="button blue">수정</button>
+                        </form>
+                    </li>
 
-        </div><!--End of the Content-->';
-    ?>
+                    <li>
+                        <form action="content_remove.php" method="post">
+                            <input type=hidden name=postNum value='<? echo $postNum; ?>'>
+                            <button type="submit" class="button blue">삭제</button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+
+        <?php } ?>
+        <div id="main" class="clearfix">
+            <div><!--Here goes the blog post-->
+                <span class="author-bp">Written by <?php echo $result_arr['author']; ?> </span><span
+                        class="date-bp"><?php echo $result_arr['date']; ?></span>
+                <h1 class="clear"><?php echo $result_arr['title']; ?></h1>
+                <h2><?php echo $result_arr['content_desc']; ?></h2>
+            </div>
+        </div>
+    <?php } ?>
 
     <!--&lt;!&ndash;============================= F O O T E R  =======================================&ndash;&gt;
     <footer>
@@ -179,6 +206,5 @@
         </div>
     </footer>-->
 
-</div>
 </body>
 </html>

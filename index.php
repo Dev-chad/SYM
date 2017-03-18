@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); include "db.php" ?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -104,14 +104,20 @@
     </header>
 
     <!--===================== F E A T U R E D    A R T I C L E ============================-->
-    <div id="featured" style="background-image: url('images/audition_jyp.jpg'); background-size: contain">
-        <a href="news-post.php?post=1">
+    <?php
+    $query = "select * from contents where category = 'NEWS-MAIN' ORDER by date desc limit 1";
+    $result = $mysqli->query($query);
+    $result_arr = mysqli_fetch_array($result);
+    if(!is_null($result_arr)){?>
+    <div id="featured" style="background-image: url('images/Auditions.jpg'); background-size: contain">
+        <a href="news-post.php?post=<?php echo $result_arr['idx']; ?>">
             <div id="featuredinfo">
-                <h1>JYP Entertainment audition</h1>
-                <p>JYP 오디션이 개막했습니다. 여러분의 실력을 보여주세요.</p>
+                <h1><?php echo $result_arr['title']; ?></h1>
+                <p><?php echo $result_arr['content_desc']; ?></p>
             </div>
         </a>
     </div>
+    <?php }?>
 
 
     <!--======================= I N T R O D U C T I O N  ==================================-->

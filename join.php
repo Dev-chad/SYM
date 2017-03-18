@@ -20,20 +20,47 @@
 
     <script>
         $(function () {
+            var isCheckID = false;
+            var isSamePwd = false;
+
             $('a').each(function () {
                 if ($(this).prop('href') == window.location.href) {
                     $(this).addClass('current');
                 }
             });
+
+            $("#inputId").change(function () {
+                isCheckID  = false;
+                $("#dupleCheck").text('중복확인');
+                $("#dupleCheck").attr('class','button blue');
+            });
+
+            $("#dupleCheck").click(function () {
+                if(isCheckID){
+                    alert("이미 중복확인을 완료 하였습니다.");
+                } else {
+                    if($("#inputId").val().length > 0){
+                        isCheckID = true;
+                        $(this).text('확인완료');
+                        $(this).attr('class','button green');
+                    } else {
+                        &
+                    }
+                }
+            });
+
+            $(window).on("beforeunload", function () {
+                if (isCheckID) {
+                    return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+                }
+            });
+
+            $("#join").click(function () {
+                isCheckID = false;
+
+            });
         });
 
-        function cancle(){
-            self.location.href="/index.php";
-        }
-
-        function submit(){
-            $("#joinForm").submit();
-        }
 
     </script>
 </head>
@@ -65,11 +92,12 @@
             <?php } else { ?>
 
                 <div class="dropdown">
-                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                    <a href="#" class="button green dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="setting.php">Setting</a></li>
-                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                        <?php if ($_SESSION["type"] == "admin") { ?>
                             <li><a href="#">Admin Page</a></li>
                         <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
@@ -80,7 +108,6 @@
             <?php } ?>
         </div>
     </div>
-
 
 
     <header>
@@ -115,24 +142,27 @@
     </div>
     <div class="col-md-12">
 
-        <form class="form-horizontal" name="joinForm" action="joinUser.php" method="POST">
+        <form id="joinForm" class="form-horizontal" name="joinForm" action="joinUser.php" method="POST">
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputId">아이디</label>
                 <div class="col-sm-6">
                     <input class="form-control" id="inputId" type="text" name="id">
+                    <input type="hidden" name="checkID" value="use">
+                    <p id="inputIdMessage" class="help-block">비밀번호를 한번 더 입력해주세요.</p>
                 </div>
+                <a id="dupleCheck" href="#" class="button blue" style="margin-left: 5px; margin-top: 6px">중복확인</a>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPassword">비밀번호</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPassword" type="password" name="pwd">
+                    <input class="form-control" id="inputPassword" type="password" name="pwd" placeholder="숫자, 특수문자 포함 8자 이상">
                     <p class="help-block">숫자, 특수문자 포함 8자 이상</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPasswordCheck">비밀번호 확인</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="inputPasswordCheck" type="password" name="repwd">
+                    <input class="form-control" id="inputPasswordCheck" type="password" name="pwdCheck" placeholder="비밀번호를 한번 더 입력해주세요.">
                     <p class="help-block">비밀번호를 한번 더 입력해주세요.</p>
                 </div>
             </div>
@@ -158,7 +188,8 @@
                 <label class="col-sm-3 control-label" for="inputNumber">휴대폰번호</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input type="tel" class="form-control" id="inputNumber" placeholder="- 없이 입력해 주세요" name="phone"/>
+                        <input type="tel" class="form-control" id="inputNumber" placeholder="- 없이 입력해 주세요"
+                               name="phone"/>
                         <span class="input-group-btn">
                   </span>
                     </div>
@@ -166,7 +197,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12 text-center">
-                    <button class="btn btn-primary" type="submit">회원가입</button>
+                    <a id="join" class="btn btn-primary">회원가입</a>
                 </div>
             </div>
         </form>
