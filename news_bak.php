@@ -112,21 +112,58 @@ include "db.php" ?>
             <a href="upload.php" class="button red" style="float: right">올리기</a>
         </div>
     <?php } ?>
-    <div id="main" class="clearfix" style="padding: 0 0 20px 20px">
-        <?php $query = 'select * from contents where category like "NEWS%" order by date DESC';
-        $result = $mysqli->query($query);
-        while ($result_arr = mysqli_fetch_array($result)) { ?>
+    <div id="main" class="clearfix">
+        <div id="content"><!--Here goes the articles-->
+            <?php $query = 'select * from contents where category like "NEWS%" order by date DESC';
+            $result = $mysqli->query($query);
+            while ($result_arr = mysqli_fetch_array($result)) { ?>
+                <article>
+                    <div class="post-image">
+                        <img src="images/Auditions.jpg" alt=""/>
+                        <a href="news-post.php?post=<?php echo $result_arr['idx'];?>" class="post-info">
+                            <h1 class="post-title"><?php echo $result_arr['title']; ?></h1>
+                            <span class="author">Written by <?php echo $result_arr['author']; ?></span><span class="date"><?php echo $result_arr['date']; ?></span>
+                        </a>
+                    </div>
+                    <p></p>
+                    <a class="readmore" href="news-post.php?post=<?php echo $result_arr['idx'];?>">Read more</a>
+                </article>
+            <?php } $mysqli->close();?>
+        </div>
 
-            <h1 style="font-size: 30px"><a
-                        href="news-post.php?post=<?php echo $result_arr['idx']; ?>"><?php echo $result_arr['title']; ?></a>
-            </h1>
-            <span class="author-bp">Written by <?php echo $result_arr['author']; ?> </span><span
-                    class="date-bp"><?php echo $result_arr['date']; ?></span> <br>
-
-            <hr>
-        <?php }
-        $mysqli->close(); ?>
-
+        <!--<div id="sidebar">&lt;!&ndash;Here goes the sidebar items&ndash;&gt;
+            <div class="sidebar_item categories clearfix">
+                <h5>Categories</h5>
+                <ul>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Personal</a></li>
+                    <li><a href="#">Photography</a></li>
+                    <li><a href="#">Health</a></li>
+                    <li><a href="#">Fashion</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Random Stuffs</a></li>
+                </ul>
+            </div>
+            <div class="sidebar_item">
+                <h5>Custom text</h5>
+                <p>velit vel porta elementum, magna diam molestie sapien. Proin tincidunt, velit vel porta elementum,
+                    magna diam molestie sapien, non aliquet massa pede eu diam.</p>
+            </div>
+            <div class="sidebar_item">
+                <h5>Archives</h5>
+                <ul>
+                    <li><a href="#">June 2012</a></li>
+                    <li><a href="#">May 2012</a></li>
+                    <li><a href="#">April 2012</a></li>
+                    <li><a href="#">Mars 2012</a></li>
+                    <li><a href="#">February 2012</a></li>
+                </ul>
+            </div>
+        </div>-->
     </div>
 
     <!--&lt;!&ndash;============================= F O O T E R  =======================================&ndash;&gt;

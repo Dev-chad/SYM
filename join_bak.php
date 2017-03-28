@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
-    <!--<script>
+    <script>
         $(function () {
             var isCheckID = false;
             var isSamePwd = false;
@@ -63,7 +63,7 @@
         });
 
 
-    </script>-->
+    </script>
 </head>
 <body>
 
@@ -198,7 +198,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12 text-center">
-                    <button id="join" class="btn btn-primary" type="submit">회원가입</button>
+                    <a id="join" class="btn btn-primary">회원가입</a>
                 </div>
             </div>
         </form>

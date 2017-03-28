@@ -26,8 +26,17 @@
                     $(this).addClass('current');
                 }
             });
-        });
 
+            $(".dropdown-menu li a").click(function () {
+                $("#noticeType").text($(this).text());
+
+                if ($(this).text() == "일반") {
+                    $("#noticeType").val("general");
+                } else {
+                    $("#noticeType").val("important");
+                }
+            });
+        });
     </script>
 
 </head>
@@ -59,11 +68,12 @@
             <?php } else { ?>
 
                 <div class="dropdown">
-                    <a href="#" class="button green dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION["nickname"];?>
+                    <a href="#" class="button green dropdown-toggle"
+                       data-toggle="dropdown"><?php echo $_SESSION["nickname"]; ?>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="setting.php">Setting</a></li>
-                        <?php if ($_SESSION["type"] == "admin"){ ?>
+                        <?php if ($_SESSION["type"] == "admin") { ?>
                             <li><a href="#">Admin Page</a></li>
                         <?php } ?>
                         <li><a href="logout.php">Logout</a></li>
@@ -74,7 +84,6 @@
             <?php } ?>
         </div>
     </div>
-
 
     <header>
         <div id="logo">
@@ -100,18 +109,20 @@
                 </li>
             </ul>
         </nav>
-
     </header>
     <div id="pagetitle">
         <h1>Upload</h1>
         <p>게시글 작성</p>
     </div>
-    
+
     <div style="padding : 30px;">
         <form method="POST" action="content_upload.php">
             <div class="form-group">
                 <label>제목</label>
+
+
                 <input type="text" name="title" class="form-control">
+
             </div>
             <div class="form-group">
                 <label>내용</label>
@@ -123,8 +134,6 @@
 
 </div>
 
-<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 </body>
 </html>
 
