@@ -25,4 +25,6 @@ if ($getID['id']) {
 } else {
     echo '<script>alert("로그인 실패"); history.back();</script>';
 }
+
+$mysqli->close();
 ?>

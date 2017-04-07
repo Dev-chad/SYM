@@ -1,5 +1,5 @@
 <?php
-$target_dir = "/sym_data/";
+/*$target_dir = "/sym_data/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -42,4 +42,45 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-?>
+*/?>
+
+<html>
+<head>
+    <title>팝업으로 띄워지는 창</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+    <script language="JavaScript">
+        <!--
+        function setCookie(name,value,expiredays) {
+            var todayDate = new Date();
+            todayDate.setDate(todayDate.getDate() + expiredays);
+            document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+        }
+
+        function closeWin() {
+            if(document.checkClose.name1.checked == true) {
+                setCookie("name1", "done" ,1);
+            }
+            self.close();
+        }
+        //-->
+    </script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table border="0" width="300" height="400" cellpadding="0" cellspacing="0">
+    <form name="checkClose">
+        <tr>
+            <td colspan="2" height="377">
+                <a href="이동할 주소" target="_blank"><img src="images/popup01.gif" border="0" alt="클릭"></a></td>
+        </tr>
+        <tr>
+            <td width="250" height="23" valign="top" bgcolor="#000000">
+                <input type="checkbox" name="name1" onfocus="this.blur()">오늘 하루 이 창 띄우지 않음</td>
+            <td width="50" valign="bottom" bgcolor="#000000">
+                <a href="#" _onxclick="closeWin()">[닫기]</a>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

@@ -109,25 +109,73 @@ include "db.php" ?>
     </div>
     <?php if ($_SESSION['type'] == "admin") { ?>
         <div id="main" class="clearfix">
-            <a href="upload.php" class="button red" style="float: right">올리기</a>
+            <a href="upload.php?category=news" class="button red" style="float: right">업로드</a>
         </div>
     <?php } ?>
     <div id="main" class="clearfix" style="padding: 0 0 20px 20px">
-        <?php $query = 'select * from contents where category like "NEWS%" order by date DESC';
-        $result = $mysqli->query($query);
-        while ($result_arr = mysqli_fetch_array($result)) { ?>
+        <?php
+        $result = $mysqli->query("select count(*) from contents where category like 'NEWS%'");
+        $totalCount = mysqli_fetch_array($result);
 
-            <h1 style="font-size: 30px"><a
-                        href="news-post.php?post=<?php echo $result_arr['idx']; ?>"><?php echo $result_arr['title']; ?></a>
-            </h1>
-            <span class="author-bp">Written by <?php echo $result_arr['author']; ?> </span><span
-                    class="date-bp"><?php echo $result_arr['date']; ?></span> <br>
+        if ($totalCount[0] > 0) {
+            $page = $_GET['page'];
+            $viewCount = 10;
+            $totalPage = ceil($totalCount[0] / $viewCount);
 
-            <hr>
-        <?php }
-        $mysqli->close(); ?>
+            if (is_null($page) || $page < 1) {
+                $page = 1;
+            } else if ($page > $totalPage) {
+                $page = $totalPage;
+            }
 
+            $start = ($page * $viewCount) - $viewCount;
+
+            $query = "select * from contents where category like 'NEWS%' order by idx DESC limit $start, $viewCount";
+            $result = $mysqli->query($query);
+            while ($result_arr = mysqli_fetch_array($result)) { ?>
+
+                <h1 style="font-size: 30px"><a
+                            href="postView.php?category=news&postNum=<?php echo $result_arr['idx']; ?>"><?php echo $result_arr['title']; ?></a>
+                </h1>
+                <span class="author-bp">Written by <?php echo $result_arr['author']; ?> </span><span
+                        class="date-bp"><?php echo $result_arr['date']; ?></span> <br>
+
+                <hr>
+            <?php } ?>
+            <div class="clearfix" align="center">
+                <?php
+                $blockCount = 10;
+                $startPage = 0;
+                if ($page % $blockCount == 0) {
+                    $startPage = ((floor($page / $blockCount) - 1) * $blockCount) + 1;
+                } else {
+                    $startPage = (floor($page / $blockCount) * $blockCount) + 1;
+                }
+
+                $endPage = $startPage + ($blockCount - 1);
+
+                if ($startPage != 1) { ?>
+                    <a href="news.php" style="font-weight: bold; font-size: 15px; color: #0f0f0f"> 처음 </a>
+                    <a href="news.php?page=<?php echo $startPage-1; ?>" style="font-weight: bold; font-size: 15px; color: #0f0f0f"> << </a>
+                <?php }
+                for ($j = $startPage; $j <= $endPage && $j <= $totalPage; $j++) {
+                    if ($page == $j) { ?>
+                        <a style="font-weight: bold; font-size: 15px; color: #0f0f0f"> <?php echo $j; ?> </a>
+                    <?php } else { ?>
+                        <a href="news.php?page=<?php echo $j; ?>" style="font-size: 15px;"> <?php echo $j; ?> </a>
+                    <?php } ?>
+                <?php }
+                if (($totalPage - $startPage) >= $blockCount) { ?>
+                    <a href="news.php?page=<?php echo $endPage+1; ?>" style="font-weight: bold; font-size: 15px; color: #0f0f0f"> >> </a>
+                    <a href="news.php?page=<?php echo $totalPage; ?>" style="font-weight: bold; font-size: 15px; color: #0f0f0f"> 맨끝 </a>
+                <?php } ?>
+            </div>
+        <?php } else { ?>
+            <p align="center"> 아직 작성된 게시물이 없습니다. </p>
+        <?php } ?>
     </div>
+
+    <?php $mysqli->close(); ?>
 
     <!--&lt;!&ndash;============================= F O O T E R  =======================================&ndash;&gt;
     <footer>

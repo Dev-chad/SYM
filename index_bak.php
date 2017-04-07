@@ -27,39 +27,8 @@ include "db.php" ?>
                     $(this).addClass('current');
                 }
             });
-
-            $(window).bind("pageshow", function () {
-                openPopup()
-            });
-
         });
 
-        function getCookie(name) {
-            var cookieName = name + "=";
-            var x = 0;
-            while (x <= document.cookie.length) {
-                var y = (x + cookieName.length);
-                if (document.cookie.substring(x, y) == cookieName) {
-                    if ((lastChrCookie = document.cookie.indexOf(";", y)) == -1)
-                        lastChrCookie = document.cookie.length;
-                    return decodeURI(document.cookie.substring(y, lastChrCookie));
-                }
-                x = document.cookie.indexOf(" ", x) + 1;
-                if (x == 0)
-                    break;
-            }
-            return "";
-        }
-
-        function openPopup() {
-            var result = getCookie('popup');
-            if (result == 'end') {
-                return false;
-            }
-            else {
-                window.open('popup.php', 'pop1', 'width=615, height=400, top=50, left=150, scrollbars=0, toolbar=0, menubar=0, location=no');
-            }
-        }
     </script>
 
 </head>
@@ -138,13 +107,24 @@ include "db.php" ?>
 
     <!--===================== F E A T U R E D    A R T I C L E ============================-->
     <?php
-    $query = "select * from contents where category = 'NEWS-MAIN' ORDER by date desc";
+    $query = "select * from contents where category = 'NEWS-MAIN' ORDER by date desc limit 1";
     $result = $mysqli->query($query);
+    $result_arr = mysqli_fetch_array($result);
     $resultCount = mysqli_num_rows($result);
-    if ($resultCount > 0) { ?>
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" align="center">
+    echo $resultCount;
+    if (!is_null($result_arr)) { ?>
+        <div id="featured" style="background-image: url(<?php echo $result_arr['image']; ?>); background-size: contain">
+            <a href="postView.php?post=<?php echo $result_arr['idx']; ?>">
+                <div id="featuredinfo">
+                    <h1><?php echo $result_arr['title']; ?></h1>
+                    <p><?php echo $result_arr['content_desc']; ?></p>
+                </div>
+            </a>
+        </div>
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
-            <ol class="carousel-indicators" style="bottom: 10px">
+            <ol class="carousel-indicators">
                 <?php for ($count = 0; $count < $resultCount; $count++) {
                     if ($count == 0) { ?>
                         <li data-target="#myCarousel" data-slide-to=<?php echo $count ?> class="active"></li>
@@ -159,39 +139,25 @@ include "db.php" ?>
                 while ($result_arr = mysqli_fetch_array($result)) {
                     if ($count == 0) { ?>
                         <div class="item active">
-                            <a href="postView.php?category=news&postNum=<?php echo $result_arr['idx']; ?>"><img
-                                        style="width: 940px; height: 400px" src=<?php echo $result_arr['thumbnail']; ?>></a>
-                            <div class="carousel-caption" style="text-align: left; left: 0;">
-                                <a href="postView.php?category=news&postNum=<?php echo $result_arr['idx']; ?>"
-                                   style="color: #fff">
-                                    <div id="featuredinfo" style="bottom: 30%;">
-                                        <h1><?php echo $result_arr['title']; ?></h1>
-                                        <p><?php echo explode("\n", $result_arr['content_desc'])[0]; ?></p>
-                                    </div>
-                                </a>
-                            </div>
+                            <img src="<?php echo $result_arr['image']?>" alt="Chania">
                         </div>
                     <?php } else { ?>
                         <div class="item">
-                            <a href="postView.php?category=news&postNum=<?php echo $result_arr['idx']; ?>"><img
-                                        style="width: 940px; height: 400px" src=<?php echo $result_arr['thumbnail']; ?>></a>
-                            <div class="carousel-caption" style="text-align: left; left: 0;">
-                                <a href="postView.php?category=news&postNum=<?php echo $result_arr['idx']; ?>"
-                                   style="color: #fff">
-                                    <div id="featuredinfo" style="bottom: 30%;">
-                                        <h1><?php echo $result_arr['title']; ?></h1>
-                                        <p><?php echo explode("\n", $result_arr['content_desc'])[0]; ?></p>
-                                    </div>
-                                </a>
-                            </div>
+                            <img src="<?php echo $result_arr['image']?>" alt="Chania">
                         </div>
                     <?php }
-                    $count++;
                 } ?>
             </div>
 
             <!-- Left and right controls -->
-
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     <?php } ?>
 
@@ -236,29 +202,34 @@ include "db.php" ?>
 
     <div id="main" class="clearfix"><h3 style="color: #777; ">New Stage</h3></div>
     <div id="articles" class="clearfix">
-        <?php
-        $query = "select * from contents where category='stage' ORDER BY date desc limit 4";
-        $result = $mysqli->query($query);
-        if (mysqli_num_rows($result) > 0) {
-            $count = 1;
-            while ($result_arr = mysqli_fetch_array($result)) {
-                if ($count % 4 != 0) {?>
-                    <article>
-                        <a href="postView.php?category=stage&postNum=<?php echo $result_arr['idx']; ?>"><img src="<?php echo $result_arr['thumbnail']; ?>" alt="" style="width: 220px; height: 100px;"/></a>
-                        <h1><?php echo $result_arr['title']; ?></h1>
-                        <a href="postView.php?category=stage&postNum=<?php echo $result_arr['idx']; ?>" class="rm">Read More</a>
-                    </article>
-                <?php } else { ?>
-                    <article id="lastarticle">
-                        <a href="postView.php?category=stage&postNum=<?php echo $result_arr['idx']; ?>"><img src="<?php echo $result_arr['thumbnail']; ?>" alt="" style="width: 220px; height: 100px;"/></a>
-                        <h1><?php echo $result_arr['title']; ?></h1>
-                        <a href="postView.php?category=stage&postNum=<?php echo $result_arr['idx']; ?>" class="rm">Read More</a>
-                    </article>
-                <?php
-                }
-                $count++;
-            }
-        } ?>
+        <article>
+            <a href="#"><img src="images/1.jpg" alt=""/></a>
+            <h1>Web Development</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna
+                risus posuere turpis, nec cursus ipsum arcu.</p>
+            <a href="#" class="rm">Read More</a>
+        </article>
+        <article>
+            <a href="#"><img src="images/2.jpg" alt=""/></a>
+            <h1>Design Service</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna
+                risus posuere turpis, nec cursus ipsum arcu.</p>
+            <a href="#" class="rm">Read More</a>
+        </article>
+        <article>
+            <a href="#"><img src="images/3.jpg" alt=""/></a>
+            <h1>Products</h1>
+            <p>Tempor ac ullamcorper et, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at
+                vulputate blandit, magna risus posuere.</p>
+            <a href="#" class="rm">Read More</a>
+        </article>
+        <article id="lastarticle">
+            <a href="#"><img src="images/4.jpg" alt=""/></a>
+            <h1>Consultation</h1>
+            <p>Tempor ac ullamcorper et, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at
+                vulputate blandit, magna risus posuere.</p>
+            <a href="#" class="rm">Read More</a>
+        </article>
     </div>
 
     <!--============================= F O O T E R  =======================================-->

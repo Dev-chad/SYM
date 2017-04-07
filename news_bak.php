@@ -120,13 +120,13 @@ include "db.php" ?>
                 <article>
                     <div class="post-image">
                         <img src="images/Auditions.jpg" alt=""/>
-                        <a href="news-post.php?post=<?php echo $result_arr['idx'];?>" class="post-info">
+                        <a href="postView.php?post=<?php echo $result_arr['idx'];?>" class="post-info">
                             <h1 class="post-title"><?php echo $result_arr['title']; ?></h1>
                             <span class="author">Written by <?php echo $result_arr['author']; ?></span><span class="date"><?php echo $result_arr['date']; ?></span>
                         </a>
                     </div>
                     <p></p>
-                    <a class="readmore" href="news-post.php?post=<?php echo $result_arr['idx'];?>">Read more</a>
+                    <a class="readmore" href="postView.php?post=<?php echo $result_arr['idx'];?>">Read more</a>
                 </article>
             <?php } $mysqli->close();?>
         </div>

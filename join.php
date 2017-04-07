@@ -149,9 +149,8 @@
                 <div class="col-sm-6">
                     <input class="form-control" id="inputId" type="text" name="id">
                     <input type="hidden" name="checkID" value="use">
-                    <p id="inputIdMessage" class="help-block">비밀번호를 한번 더 입력해주세요.</p>
                 </div>
-                <a id="dupleCheck" href="#" class="button blue" style="margin-left: 5px; margin-top: 6px">중복확인</a>
+<!--                <a id="dupleCheck" href="#" class="button blue" style="margin-left: 5px; margin-top: 6px">중복확인</a>-->
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="inputPassword">비밀번호</label>
